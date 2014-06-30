@@ -1,0 +1,156 @@
+<!doctype html>
+<link rel="stylesheet" type="text/css" href="WCOM.css" title="Blues"/>
+<html>
+    <title>CSS2 - white-space</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <head>
+        <script type="text/javascript">
+        function enforce_textarea_hard_limits(field, max_rows, max_columns) {
+            var row_violation = false;
+            var col_violation = false;
+            var textarea    = document.getElementById(field);
+            //var rows        = textarea.value.split("\\n");
+            //var rows        = textarea.value.split(/\r\n|\r|\n/g);
+            var rows        = textarea.value.split(/\r\n|\r|\n/g);
+            var num_rows    = rows.length;
+
+            if ( num_rows > max_rows ) {
+                row_violation = true;
+            }
+            else {
+                for ( var i = 0; i < num_rows; i++ ) {
+                    //alert( rows[i].replace(/0/, 'ZERO' ).replace(/1/, 'ONE').replace(/\n/, 'LF').replace(/\r/, 'CR') );
+                    //alert((baz.match(/\r/) && 'CR') + ' ' + (baz.match(/\n/) && 'LF'));
+                    if ( rows[i].length > max_columns ) {
+                        alert( "Row " + i + "\nContent:[" + (rows[i].match(/\r/) && 'CR').replace("\n", "LF").replace("\r", "CR") + ' ' + (rows[i].match(/\n/) && 'LF') + "]\nLength: " + rows[i].length);
+                        //alert( "Row:[" + rows[i] + "] has length: " + rows[i].length);
+                        col_violation = true;
+                        break;
+                    }
+                }
+            }
+
+            //alert( "Total Chars: " + total_chars + "\\nMax Chars: " + max_chars + "\\nRows: " + num_rows + "\\nMax Rows: " + max_rows + "\\nMax Columns: " + max_columns );
+
+            if ( row_violation || col_violation ) {
+                var red_arrow   = document.createElement( 'img' );
+                red_arrow.setAttribute('src', 'images/arrow.gif');
+                red_arrow.setAttribute('alt', 'Field in error');
+                red_arrow.setAttribute('class', 'errorArrow');
+                red_arrow.setAttribute('id', field + '_error_arrow');
+
+                var msg = "Entry length exceeds what can print on the form, click on the field heading for additional information.";
+                var row_msg = "Form will only hold up to " + max_rows + " rows, please review the entry.";
+                var col_msg = "Form will only hold up to " + max_columns + " characters per row, please move part of the entry to another row by using the Enter key.";
+
+                if ( row_violation ) {
+                    alert( row_msg );
+                }
+                else if ( col_violation ) {
+                    alert( col_msg );
+                }
+
+                if ( !document.getElementById( field + '_error_arrow' ) ) {
+                    document.getElementById( field ).parentNode.insertBefore( red_arrow, document.getElementById( field ) );
+                }
+            }
+            else {
+                if ( document.getElementById( field + '_error_arrow' ) ) {
+                    document.getElementById( field + '_error_arrow' ).parentNode.removeChild( document.getElementById( field + '_error_arrow' ) );
+                }
+            }
+        }
+        
+            function showValue( string ) {
+                alert("[" + string + "]"); 
+            }
+        </script>
+    </head>
+
+    <body>
+        <br /><br />
+        <div class="BO6013quest">
+            <ul>
+                <li>
+                    <form name="myForm" onsubmit="javascript:showValue(document.getElementById('GENNAME_369620_801').value );">
+                        <label>
+                            Some label here (box is 2 X 56)
+                        </label>
+                        <textarea id="GENNAME_369620_801" rows="2" cols="56" style="white-space: pre-wrap" onchange="enforce_textarea_hard_limits('GENNAME_369620_801', 2, 56);"></textarea>
+                        <!--<textarea id="GENNAME_369620_801" cols="10" rows="2" onchange="checkTextArea('GENNAME_369620_801', 2, 10);"></textarea>-->
+                        <input type="submit" value="Submit">
+                    </form>
+                </li>
+            </ul>
+        </div>
+
+        <br />
+
+        <p>I add the relevant <code>white-space</code> value inline.</p>
+
+        <h3>nowrap</h3>
+        <ul>
+            <li>Chrome: no new lines, until I press enter </li>
+            <li>Firefox: wraps to new line even though I don't press enter</li>
+            <li>IE 8: No newlines at all, even when pressing enter</li>
+            <li>IE 10: No newlines at all, even when pressing enter</li>
+        </ul>
+
+        <p>This value suppresses all line breaks in the element, except where it contains <code>&lt;br&gt;</code>s or <code>&lt;wbr&gt;</code>s.</p>
+        
+        <textarea id="nowrap" rows="3" cols="20" style="white-space: nowrap"></textarea>
+
+        <h3>pre</h3>
+        <ul>
+            <li>Chrome: works, but we end up wrapping words in the middle </li>
+            <li>Firefox: doesn't wrap words in the middle, it wraps between words </li>
+            <li>IE 8: wraps between words</li>
+            <li>IE 10: does newlines</li>
+        </ul>
+
+        <p>This value makes the element behave as a <code>&lt;pre&gt;</code>: all line breaks, tabs and other oddities of the source code
+        are literally followed.</p>
+
+        <textarea id="pre" rows="3" cols="20" style="white-space: pre"></textarea>
+
+        <h3>pre-wrap</h3>
+        <ul>
+            <li>Chrome: works fine, newlines are added as expected</li>
+            <li>Firefox: works fine</li>
+            <li>IE 8: no newlines, even when I press enter</li>
+            <li>IE 10: No newlines at all, even when pressing enter</li>
+        </ul>
+
+        <p>This value behaves as the <code>pre</code> value, except that it adds extra line breaks to prevent the text breaking out of
+        the element's box.</p>
+
+        <textarea id="pre-wrap" rows="3" cols="20" style="white-space: pre-wrap"></textarea>
+
+        <h3>pre-line</h3>
+        <ul>
+            <li>Chrome: works similarly to pre-wrap as expected</li>
+            <li>Firefox: </li>
+            <li>IE 8: no newlines, even when I press enter</li>
+            <li>IE 10: No newlines at all, even when pressing enter</li>
+        </ul>
+
+        <p>This value ignores tabs and multiple spaces, but it breaks off the text at hard returns in the
+        source code, as well as when it's necessary to prevent the text from breaking out of its box.</p>
+
+        <textarea id="pre-line" rows="3" cols="20" style="white-space: pre-line"></textarea>
+        
+        <h3>overflow: auto</h3>
+        <ul>
+            <li>Chrome: newlines added when needed, scroll bars not their until needed</li>
+            <li>Firefox: wraps, veritcal scroll bar shows up when needed</li>
+            <li>IE 8: no newlines, even when I press enter</li>
+            <li>IE 10: No newlines at all, even when pressing enter</li>
+        </ul>
+
+        <p>This value suppresses all line breaks in the element, except where it contains <code>&lt;br&gt;</code>s or <code>&lt;wbr&gt;</code>s.</p>
+        
+        <textarea id="nowrap" rows="3" cols="20" style="overflow: auto"></textarea>
+        
+    </body>
+</html>
+

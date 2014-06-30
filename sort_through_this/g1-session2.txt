@@ -1,0 +1,26 @@
+Recap
+
+* Scalar = a single 'thing'
+* List = an ordered collection of 'things'
+* Array = a variable that contains a List
+* Context matters
+* Automatic conversion (numbers <==> strings)
+* 'define'dness
+* String vs Numerical comparisons e.g. ( eq vs == )
+* $choosing_good_variable_names, not $badOnes, or $rbos
+* chomp()
+* q{} and qq{} vs '' and ""
+* Interpolation
+* if ( $has_it == 1 ) vs if ( $has_it )
+* $foo[0] = 'the first element of the array';
+* ( 'fred', 'betty', 'wilma' ) vs qw( fred betty wilma )
+* pop, push operate on the right side (top) of an array
+* shift, unshift operate on the left side (bottom) of an array
+* foreach my $something ( @somethings ) == for my $something ( @somethings )
+* 
+
+
+Chapter 4 - Subroutines
+
+Chapter 6 - Hashes
+

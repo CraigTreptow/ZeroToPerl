@@ -1,0 +1,67 @@
+We want to build an application to encode and decode secret messages.
+
+Requirements:
+
+    * will run from the command line
+    * will have 3 options
+        * encode message
+        * decode message
+        * show help/usage
+    * it will read and write from STDOUT
+    
+Encoding algorithm
+
+    * Allow ASCII characters a-z, A-Z, 0-9 only
+        * http://www.asciitable.com/
+    * chr(NUMBER)
+    * ord(CHARACTER)
+    * chr(65) = ord('A')
+    * enkode('a') == 97
+    * dekode(97) eq 'a'
+
+
+
+
+
+
+
+
+
+    
+Process
+    * Start with tests
+    * Put it in module, in case we need to use it somewhere else
+        * test to use the module
+    * enkode()
+        * test
+    * dekode()
+        * test
+        
+Steps
+    1. Create project folder E.g. Secrets
+    2. Create lib folder: Secrets/lib
+    3. Decide package name: E.g. IMT::Secrets
+    4. Create t folder: Secrets/t
+    5. Create test for loading: Secrets/t/00-load.t
+        5a. Run tests (prove)
+        5b. should fail
+    6. Create IMT folder: Secrets/lib/IMT
+    6. Create Secrets module: Secrets/lib/IMT/Secrets.pm
+        6a. module package name: IMT::Secrets
+    7. Run tests (prove)
+        7a. should pass
+    8. Create test for dekode
+        8a. Run tests (prove)
+        8b. new test should fail
+    9. Create dekode
+        9a. just return 97
+        9b. test should pass now
+    10. change dekode to use if statement: if a return 97
+        10a. test should still pass
+    11. change dekode to use ord($character)
+        11a. test should still pass
+    12. Add more tests for other characters
+        12a. tests should pass
+    13. add dekode test using bad charcter.  E.g. comma
+        13a. test should fail
+    14. 

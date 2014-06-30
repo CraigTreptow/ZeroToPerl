@@ -1,0 +1,9 @@
+Agenda
+
+Login: HOMEOFFICE\first.last
+
+* Optiperl
+* shell vs browser
+* shell path, etc.
+* ctrl-shift-f9 vs alt menu
+* Perl scalar stuff

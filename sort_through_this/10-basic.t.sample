@@ -1,0 +1,15 @@
+#!perl
+use 5.006;
+use strict;
+use warnings FATAL => 'all';
+use Test::More;
+
+BEGIN {
+    use_ok( 'Some::Module' ) || print "Bail out!\n";
+}
+
+ok(Some::Module::some_sub('a') == 97);
+
+is(Some::Module::some_sub('c'), 99, 'c == 99');
+
+done_testing();

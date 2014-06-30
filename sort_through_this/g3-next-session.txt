@@ -1,0 +1,4 @@
+* misc-topics1.pl
+* misc-topics2.pl
+* trapping-errors.pl
+* build an app exercise

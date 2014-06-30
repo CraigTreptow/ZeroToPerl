@@ -1,0 +1,9 @@
+Login as yourself
+
+HOMEOFFICE\craig.treptow
+
+* Activity - think of a number between 1 and 10 inclusive
+* Review
+* Chapter 3 - Lists and Arrays
+* Chapter 6 - Hashes
+* Chapter 4 - Subroutines

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Komodo Project File - DO NOT EDIT -->
+<project id="e558c514-e82e-4cd8-9617-64e7f03fb067" kpf_version="5" name="training.komodoproject">
+<preference-set idref="e558c514-e82e-4cd8-9617-64e7f03fb067" id="project" preftype="project">
+  <string id="perlDefaultInterpreter">T:\Perl\bin\perl.exe</string>
+  <string id="perlExtraPaths"></string>
+  <boolean id="perl_debuggerlogenabled">0</boolean>
+  <string id="perl_debuggerlogpath"></string>
+</preference-set>
+</project>

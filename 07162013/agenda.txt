@@ -1,0 +1,5 @@
+Agenda
+
+* misc
+* anonymous
+* objects

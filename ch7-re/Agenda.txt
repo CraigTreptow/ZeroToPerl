@@ -1,0 +1,8 @@
+Agenda
+
+Login: HOMEOFFICE\first.last
+
+* Regular Expressions
+* tester built into OptiPerl
+* http://www.solmetra.com/scripts/regex/
+* http://www.regexplanet.com/advanced/perl/index.html

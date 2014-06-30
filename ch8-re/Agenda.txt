@@ -1,0 +1,10 @@
+Agenda
+
+Login: HOMEOFFICE\first.last
+
+* Regular Expression matching
+* tester built into OptiPerl
+* http://www.solmetra.com/scripts/regex/
+* http://www.regexplanet.com/advanced/perl/index.html
+* http://gskinner.com/RegExr/
+* http://erik.eae.net/playground/regexp/regexp.html
