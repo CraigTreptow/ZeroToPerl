@@ -1,6 +1,0 @@
-Agenda
-
-Login: HOMEOFFICE\first.last
-
-* Lists
-* Arrays
