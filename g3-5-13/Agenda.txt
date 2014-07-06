@@ -1,5 +1,0 @@
-* ternary
-* join
-* grep
-* map
-* Secret exercise
