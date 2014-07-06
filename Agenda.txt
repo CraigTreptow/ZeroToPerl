@@ -1,6 +1,11 @@
-Agenda
+Learning Perl 6th ed
+
+Agenda - Chapter 2
 
 Login: HOMEOFFICE\first.last
 
-* Hashes
-* Regular Expressions
+* Optiperl
+* shell vs browser
+* shell path, etc.
+* ctrl-shift-f9 vs alt menu
+* Perl scalar stuff
