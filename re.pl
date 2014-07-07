@@ -18,189 +18,167 @@ $string =~ s/foo/bar/;
 =cut
 
 # Find the literal characters “red”.
-/red/
-mZredZ
-m{red}
-my $string = ‘red riding hood’;
-if ($string =~ /red/) {
-  print “$string has ‘red’ in it!’;
+# Alternate charaters
+# normal      - /red/
+# weird       - mZredZ
+# also common - m{red}
+
+my $string = 'red riding hood';
+if ( $string =~ /red/ ) {
+  print "[$string] has ‘red’ in it!\n";
 }
 
-• barred
-• redis
-• tired
-• caught red handed
-• red, purple, and blue shirt
+my @strings = ( qw{ barred redis tired }, 'caught red handed', 'red, purple, and blue shirt' );
 
-The \b assertion.
-Match a word boundary.
-/\bred\b/
-• barred
-• redis
-• tired
-• caught red handed
-• red, purple, and blue shirt
+my $re_string1 = 'red';
+my $re_string2 = '\bred\b'; # \b assertion     - match a word boundary
+my $re_string3 = '^red\b';  # ^  metacharacter - match the beginning of the line
 
-The ^ metacharacter.
-Match the beginning of the line.
-/^red\b/
-• barred
-• redis
-• tired
-• caught red handed
-• red, purple, and blue shirt
+my @re_strings = ( $re_string1, $re_string2, $re_string3 );
+
+my $re;
+for my $string ( @strings ) {
+  print "[$string]\n";
+  for my $re_string ( @re_strings ) {
+
+    print "\t", $re_string, " matches ? ";
+    $re = qr/$re_string/;
+
+    if ( $string =~ $re ) {
+      print "yes\n";
+    }
+    else {
+      print "no\n";
+    }
+  }
+}
+
+=pod
 
 String Selection
 The title out of an HTML document.
 Conceptually
 • Find the literal characters “<title>”.
-• Followed by zero or more characters
-which will be captured and returned.
-• Then ends with the literal characters
-“</title>”.
+• Followed by zero or more characters which will be captured and returned.
+• Then ends with the literal characters “</title>”.
 
 What We’ll Need
 • ( ) To capture and return the title.
 • . To match any character (except newline).
 • * To match zero or more times.
-• \ To escape what would normally not be a
-literal character.
-/<title>/
+• \ To escape what would normally not be a literal character.
+=cut
+
+my $html = q{
 <html>
-<head>
-<title>Example.com</title>
-</head>
-<body>
-Hello world!
-</body>
+  <head>
+    <title>Example.com</title>
+  </head>
+  <body>
+    Hello world!
+  </body>
 </html>
-/<title>./
-<html>
-<head>
-<title>Example.com</title>
-</head>
-<body>
-Hello world!
-</body>
-</html>
-/<title>.*/
-<html>
-<head>
-<title>Example.com</title>
-</head>
-<body>
-Hello world!
-</body>
-</html>
-/<title>(.*)/
-<html>
-<head>
-<title>Example.com</title>
-</head>
-<body>
-Hello world!
-</body>
-</html>
-/<title>(.*)<\/title>/
-<html>
-<head>
-<title>Example.com</title>
-</head>
-<body>
-Hello world!
-</body>
-</html>
-Tuesday, April 16, 13m{<title>(.*)</title>}
-<html>
-<head>
-<title>Example.com</title>
-</head>
-<body>
-Hello world!
-</body>
-</html>
+};
+
+$re_string1 = '<title>';
+$re_string2 = '<title>.';
+$re_string3 = '<title>.*';
+my $re_string4 = '<title>(.*)';
+my $re_string5 = '<title>(.*)<\/title>';
+my $re_string6 = 'm{<title>(.*)</title>}'; # don't need to escape the '/' using 'm'
+
+@re_strings = ( $re_string1, $re_string2, $re_string3, $re_string4, $re_string5, $re_string6 );
+
+print "$html\n";
+for my $re_string ( @re_strings ) {
+  print "\t", $re_string, " matches ? ";
+  $re = qr/$re_string/;
+
+  if ( $html =~ $re ) {
+    print "yes\n";
+  }
+  else {
+    print "no\n";
+  }
+}
+
 $html =~ m{<title>(.*)</title>};
-print “The title is $1\n”;
+print "The title is $1\n";
+
+if ( $html =~ m{<title>(.*)</title>} ) {
+  print "yup\n";
+}
+
+=pod
+
 String Replacement
+
 Remove county name suffixes.
 my $string =
 ‘Los Angeles County
 Harris County
 Lafayette Parish’;
-3Conceptually
+
+Conceptually
 • For each line.
-• Match for a particular set of strings at the
-end of the line.
+• Match for a particular set of strings at the end of the line.
 • Replace the match with an empty string.
+
 What We’ll Need
 • $ Match the end of the line.
 • | Alternation metacharacter.
 • ( ) Group alternating patterns.
 • m Treat string as multiple lines.
 • g Modifier to do global matching.
-/(County|Parish)/
-Los+Angeles+County
-Harris+County
-Lafayette+Parish
-/(County|Parish)/g
-Los+Angeles+County
-Harris+County
-Lafayette+Parish
-/ (County|Parish)/g
-Los+Angeles+County
-Harris+County
-Lafayette+Parish
-/ (County|Parish)$/g
-Los+Angeles+County
-Harris+County
-Lafayette+Parish
-/ (County|Parish)$/gm
-Los+Angeles+County
-Harris+County
-Lafayette+Parish
-$string =~ s/ (County|Parish)$//gm
-$string eq ‘Los Angeles Harris Lafayette’;
-Matching an IP address.
-0.0.0.0
-to
-255.255.255.255
-What We’ll Need
-• [ ] Bracketed character class to match
-digits.
-• ( ) Grouping metacharacter.
-• | Alternation metacharacter.
-• \ To escape what would normally not be a
-literal character.
-Matching a number from 0 to 255.
-25[0-5] | 2[0-4][0-9] | 1[0-9][0-9] | [1-9][0-9] | [0-9]
-Now do it four times with periods between.
-/^(25[0-5] | 2[0-4][0-9] | 1[0-9][0-9] | [1-9][0-9] | [0-9])\.
-(25[0-5] | 2[0-4][0-9] | 1[0-9][0-9] | [1-9][0-9] | [0-9])\.
-(25[0-5] | 2[0-4][0-9] | 1[0-9][0-9] | [1-9][0-9] | [0-9])\.
-(25[0-5] | 2[0-4][0-9] | 1[0-9][0-9] | [1-9][0-9] | [0-9])$/
-This can be simplified.
-/^(25[0-5] | 2[0-4]\d | 1\d\d | [1-9]\d | \d)
-(\.(25[0-5] | 2[0-4]\d | 1\d\d | [1-9]\d |
-\d)){3}$/
-And, simplified even more.
-my $re = qr/25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d/;
-if ($ip =~ /^($re)\.($re)\.($re)\.($re)$/) {
-  ...
+
+=cut
+
+$string =
+'Los Angeles County
+Harris County
+Lafayette Parish';
+
+$re_string1 = '(County|Parish)';
+$re_string2 = ' (County|Parish)$';
+
+@re_strings = ( $re_string1, $re_string2 );
+
+$re;
+my $re_m;
+print "[$string]\n";
+for my $re_string ( @re_strings ) {
+
+  print "\t", $re_string, " matches ? ";
+  $re   = qr/$re_string/;
+  $re_m = qr/$re_string/m;
+
+  if ( $string =~ $re ) {
+    print "yes\n";
+  }
+  else {
+    print "no\n";
+  }
+
+  if ( $string =~ /$re/g ) {
+    print "yes (g)\n";
+  }
+  else {
+    print "no (g)\n";
+  }
+
+  if ( $string =~ /$re_m/g ) {
+    print "yes (mg)\n";
+  }
+  else {
+    print "no (mg)\n";
+  }
 }
-There is still something wrong.
-25[0-5] | 2[0-4][0-9] | 1[0-9][0-9] | [1-9][0-9] | [0-9]
-This is brittle and overly complex.
-25[0-5] | 2[0-4][0-9] | 1[0-9][0-9] | [1-9][0-9] | [0-9]
-Sometimes there are better solutions.
-use List::MoreUtils qw( all );
-my @parts = split(/\./, $ip);
-if (
-  @parts == 4 and
-  all { int($_)==$_ and $_>=0 and $_<=255 } @parts
-  ) {
-  ...
-}
-#The End
+
+$string =~ s/ (County|Parish)$//gm;
+$string eq 'Los Angeles Harris Lafayette';
+
+print "Now string is: [$string]\n";
+print "\n\n";
 
 =pod
 Metacharacters
