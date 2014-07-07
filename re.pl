@@ -5,19 +5,19 @@ use strict;
 =pod
 Three uses:
 
-• Comparison:
+* Comparison:
 if ($string =~ /foo/) { ... }
 
-• Selection:
+* Selection:
 $string =~ /foo(.*)bar/;
 my $between_foo_bar = $1;
 
-• Replacement:
+* Replacement:
 $string =~ s/foo/bar/;
 
 =cut
 
-# Find the literal characters “red”.
+# Find the literal characters 'red'�.
 # Alternate charaters
 # normal      - /red/
 # weird       - mZredZ
@@ -25,7 +25,7 @@ $string =~ s/foo/bar/;
 
 my $string = 'red riding hood';
 if ( $string =~ /red/ ) {
-  print "[$string] has ‘red’ in it!\n";
+  print "[$string] has 'red' in it!\n";
 }
 
 my @strings = ( qw{ barred redis tired }, 'caught red handed', 'red, purple, and blue shirt' );
@@ -58,15 +58,15 @@ for my $string ( @strings ) {
 String Selection
 The title out of an HTML document.
 Conceptually
-• Find the literal characters “<title>”.
-• Followed by zero or more characters which will be captured and returned.
-• Then ends with the literal characters “</title>”.
+* Find the literal characters '<title>'�.
+* Followed by zero or more characters which will be captured and returned.
+* Then ends with the literal characters '</title>'�.
 
 What We’ll Need
-• ( ) To capture and return the title.
-• . To match any character (except newline).
-• * To match zero or more times.
-• \ To escape what would normally not be a literal character.
+* ( ) To capture and return the title.
+* . To match any character (except newline).
+* * To match zero or more times.
+* \ To escape what would normally not be a literal character.
 =cut
 
 my $html = q{
@@ -85,7 +85,7 @@ $re_string2 = '<title>.';
 $re_string3 = '<title>.*';
 my $re_string4 = '<title>(.*)';
 my $re_string5 = '<title>(.*)<\/title>';
-my $re_string6 = 'm{<title>(.*)</title>}'; # don't need to escape the '/' using 'm'
+my $re_string6 = 'm{<title>(.*)<\/title>}'; # don't need to escape the '/' using 'm'
 
 @re_strings = ( $re_string1, $re_string2, $re_string3, $re_string4, $re_string5, $re_string6 );
 
@@ -93,6 +93,7 @@ print "$html\n";
 for my $re_string ( @re_strings ) {
   print "\t", $re_string, " matches ? ";
   $re = qr/$re_string/;
+  print "re[$re]\n";
 
   if ( $html =~ $re ) {
     print "yes\n";
@@ -109,27 +110,28 @@ if ( $html =~ m{<title>(.*)</title>} ) {
   print "yup\n";
 }
 
+
 =pod
 
 String Replacement
 
 Remove county name suffixes.
 my $string =
-‘Los Angeles County
+'Los Angeles County
 Harris County
-Lafayette Parish’;
+Lafayette Parish';
 
 Conceptually
-• For each line.
-• Match for a particular set of strings at the end of the line.
-• Replace the match with an empty string.
+* For each line.
+* Match for a particular set of strings at the end of the line.
+* Replace the match with an empty string.
 
-What We’ll Need
-• $ Match the end of the line.
-• | Alternation metacharacter.
-• ( ) Group alternating patterns.
-• m Treat string as multiple lines.
-• g Modifier to do global matching.
+What We'll Need
+* $ Match the end of the line.
+* | Alternation metacharacter.
+* ( ) Group alternating patterns.
+* m Treat string as multiple lines.
+* g Modifier to do global matching.
 
 =cut
 
@@ -174,7 +176,7 @@ for my $re_string ( @re_strings ) {
   }
 }
 
-$string =~ s/ (County|Parish)$//gm;
+$string =~ s/ (County|Parish)$/ Foo/gm;
 $string eq 'Los Angeles Harris Lafayette';
 
 print "Now string is: [$string]\n";

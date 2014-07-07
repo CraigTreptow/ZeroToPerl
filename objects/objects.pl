@@ -51,7 +51,6 @@ print $red_shape->{color}, "\n";
 print $red_shape->{length}, "\n";
 print $red_shape->{width}, "\n";
 
-
 my $default_shape = IMT::Shape->new;
 
 print 'Default color: ', $default_shape->{color} ;
@@ -78,6 +77,7 @@ print 'The default shape has an area of: ', $default_shape->get_area, "\n";
 
 print "\n\n";
 
+
 my $blue_shape = IMT::Shape->new(
 	{
 		color	=>	'red',
@@ -90,6 +90,7 @@ $blue_shape->set_color('blue');
 print $blue_shape->get_color, "\n\n";
 
 print $red_shape->get_creation_date, "\n";
+
 
 sleep(2);
 my $circle = IMT::Shape::Circle->new;
@@ -104,9 +105,7 @@ print 'Circumference: ', $circle->get_circumference, "\n";
 print 'Area: ', $circle->get_area, "\n";
 print 'Red Length: ', $red_shape->get_length, "\n";
 print 'Circle Length: ', $circle->get_length, "\n";
-
-
-
+print 'Circle Color: ', $circle->get_color, "\n\n";
 
 ###
 
